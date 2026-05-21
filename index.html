@@ -1452,7 +1452,7 @@
               <div class="mini-benefit"><strong>Yucca</strong><span>Mais firmeza nas fezes e redução de odor</span></div>
               <div class="mini-benefit"><strong>3&6</strong><span>Ômega para pele e pelagem</span></div>
               <div class="mini-benefit"><strong>0</strong><span>Sem corantes e aromatizantes artificiais</span></div>
-              <div class="mini-benefit"><strong>Pet</strong><span>Versões para cães e gatos</span></div>
+              <div class="mini-benefit"><strong>Pet</strong><span>Versões para cães e <br/> gatos</span></div>
             </div>
 
             <a class="btn btn-primary" href="#orcamento">Comprar agora</a>
@@ -1464,6 +1464,7 @@
                 <img src="./images/bem-filhotes.jpeg">
               </div>
               <h3>Bem Prime Filhotes</h3>
+              <p>3 kg</p>
               <div class="product-actions">
                 <button class="small-link" data-product="filhotes" type="button">Saiba mais</button>
               </div>
@@ -1472,6 +1473,7 @@
             <article class="product-card">
               <div class="product-image"><img src="./images/bem-prime-adultos-pequenos.jpeg"></div>
               <h3>Bem Prime Adultos Raças Pequenas</h3>
+              <p>3 kg</p>
               <div class="product-actions">
                 <button class="small-link" data-product="racas-pequenas" type="button">Saiba mais</button>
               </div>
@@ -1479,7 +1481,8 @@
 
             <article class="product-card">
               <div class="product-image"><img src="./images/bem-prime-adultos-medios.jpeg"></div>
-              <h3>Bem Prime Adulto Raças Médias e Grandes</h3>
+              <h3>Bem Prime Adultos Raças Médias e Grandes</h3>
+              <p>10,1 kg</p>
               <div class="product-actions">
                 <button class="small-link" data-product="racas-medias-grandes" type="button">Saiba mais</button>
               </div>
@@ -1488,6 +1491,7 @@
             <article class="product-card">
               <div class="product-image"><img src="./images/bem-prime-gatos.jpeg"></div>
               <h3>Bem Prime Gatos Adultos e Filhotes</h3>
+              <p>3 kg</p>
               <div class="product-actions">
                 <button class="small-link" data-product="gatos" type="button">Saiba mais</button>
               </div>
@@ -1569,7 +1573,7 @@
           <div class="about-gallery-grid" aria-label="Galeria de imagens sobre a Premiagro">
             <div class="about-photo"><img src="./images/tradicao-1.jpg"></div>
             <div class="about-photo"><img src="./images/tradicao-2.jpg"></div>
-            <div class="about-photo"><img src="./images/tradicao-3.jpg"></div>
+            <div class="about-photo"><img src="./images/tradicao-3.JPG"></div>
             <div class="about-photo"><img src="./images/tradicao-4.jpg"></div>
           </div>
         </div>
@@ -1639,6 +1643,7 @@
       "filhotes": {
         title: "Bem Prime Filhotes",
         imageLabel: "Bem Prime Filhotes",
+        image: "./images/bem-filhotes.jpeg",
         intro: "Para os filhotes crescerem fortes, saudáveis e com energia de sobra, a ração Bem Prime Filhotes conta com:",
         items: [
           "28% de proteínas de alta qualidade para garantir o desenvolvimento muscular e o suporte ideal para as necessidades do pet;",
@@ -1652,7 +1657,8 @@
       "racas-pequenas": {
         title: "Bem Prime Adultos Raças Pequenas",
         imageLabel: "Bem Prime Adultos Raças Pequenas",
-        intro: "Pets de porte pequeno pedem por uma ração reforçada que priorize sua musculatura, energia e bem-estar, sem abrir mão de um sabor sem igual. Pensando nisso, a Bem Prime Adulto Raças Pequenas traz uma série de benefícios para os pets pequenos, tais como:",
+        image: "./images/bem-prime-adultos-pequenos.jpeg",
+        intro: "Pets de porte pequeno pedem por uma ração reforçada que priorize sua musculatura, energia e bem-estar, sem abrir mão de um sabor sem igual. Pensando nisso, a Bem Prime Adultos Raças Pequenas traz uma série de benefícios para os pets pequenos, tais como:",
         items: [
           "24% de proteínas de alta qualidade para manter a musculatura forte e saudável;",
           "Minerais essenciais como Selênio e Zinco, que auxiliam no fortalecimento do sistema imunológico e no metabolismo saudável;",
@@ -1663,8 +1669,9 @@
         outro: "Tudo isso e muito mais somado a um incrível sabor de carne, frango e cereais, feito para conquistar os paladares mais exigentes!"
       },
       "racas-medias-grandes": {
-        title: "Bem Prime Adulto Raças Médias e Grandes",
-        imageLabel: "Bem Prime Adulto Raças Médias e Grandes",
+        title: "Bem Prime Adultos Raças Médias e Grandes",
+        imageLabel: "Bem Prime Adultos Raças Médias e Grandes",
+        image: "./images/bem-prime-adultos-medios.jpeg",
         intro: "Combinando um sabor irresistível e proteínas e minerais para melhorar a qualidade de vida dos cães, a Bem Prime Raças Médias e Grandes é a escolha certa para o seu pet ter mais saúde e energia no dia a dia. Esta ração conta com uma série de benefícios, tais como:",
         items: [
           "22% de proteínas de alta qualidade para manter a musculatura forte e saudável;",
@@ -1678,6 +1685,7 @@
       "gatos": {
         title: "Bem Prime Gatos Adultos e Filhotes",
         imageLabel: "Bem Prime Gatos Adultos e Filhotes",
+        image: "./images/bem-prime-gatos.jpeg",
         intro: "A Bem Prime Gatos Adultos e Filhotes foi formulada para ser a ração que acompanha o seu gato em todos os momentos da vida. Com um delicioso sabor de salmão e arroz, a Bem Prime traz diversos benefícios para os felinos, tais como:",
         items: [
           "30% de proteínas de alta qualidade para garantir o desenvolvimento muscular e o suporte ideal para as necessidades do pet;",
@@ -1701,7 +1709,7 @@
       if (!product) return;
 
       modalTitle.textContent = product.title;
-      modalImage.textContent = product.imageLabel + " | substituir pela imagem real";
+      modalImage.innerHTML = `<img src="${product.image}" alt="${product.imageLabel}">`;
       modalBody.innerHTML = `
         <p>${product.intro}</p>
         <ul>${product.items.map(item => `<li>${item}</li>`).join("")}</ul>
