@@ -1196,7 +1196,18 @@
       flex: 0 0 auto;
     }
 
-    @media (max-width: 1040px) {
+    @media (min-width: 1024px) {
+      .form-card{
+        position: absolute;
+        bottom: -200px;
+      }
+      
+      .hero {
+        padding: 78px 0 200px;
+      }
+    }
+
+    @media (max-width: 1023px) {
       .nav-links {
         display: none;
       }
@@ -1444,6 +1455,14 @@
                   <div class="field">
                     <label for="empresa">Empresa</label>
                     <input id="empresa" name="empresa" type="text" placeholder="Nome da empresa" required />
+                  </div>
+                  <div class="field">
+                    <label for="cidade">Cidade</label>
+                    <input id="cidade" name="cidade" type="text" placeholder="Nome da cidade" required />
+                  </div>
+                  <div class="field">
+                    <label for="bairro">Bairro</label>
+                    <input id="bairro" name="bairro" type="text" placeholder="Nome do bairro" required />
                   </div>
                   <button class="btn btn-primary" type="submit">Comprar agora</button>
                 </form>
@@ -1840,6 +1859,8 @@
         telefone: formData.get("telefone"),
         cargo: formData.get("cargo"),
         empresa: formData.get("empresa"),
+        cidade: formData.get("cidade"),
+        bairro: formData.get("bairro"),
 
         utms: getSavedTrackingParams(),
 
