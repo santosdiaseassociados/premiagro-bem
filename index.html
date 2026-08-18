@@ -527,7 +527,7 @@
       font-size: .86rem;
     }
 
-    .field input {
+    .field input, .field select {
       width: 100%;
       border: 1px solid rgba(31, 74, 45, .15);
       background: #fbfbf6;
@@ -538,7 +538,7 @@
       transition: .2s ease;
     }
 
-    .field input:focus {
+    .field input:focus, .field select:focus {
       border-color: var(--red-700);
       box-shadow: 0 0 0 4px rgba(63, 127, 67, .1);
       background: var(--white);
@@ -1199,11 +1199,11 @@
     @media (min-width: 1024px) {
       .form-card{
         position: absolute;
-        bottom: -200px;
+        bottom: -250px;
       }
       
       .hero {
-        padding: 78px 0 200px;
+        padding: 78px 0 250px;
       }
     }
 
@@ -1436,34 +1436,57 @@
                 <p>Preencha seus dados para falar com a equipe Premiagro.</p>
 
                 <form class="lead-form" action="#" method="post">
+
                   <div class="field">
                     <label for="nome">Nome</label>
                     <input id="nome" name="nome" type="text" placeholder="Seu nome" required />
                   </div>
+
                   <div class="field">
                     <label for="email">E-mail</label>
                     <input id="email" name="email" type="email" placeholder="seuemail@empresa.com" required />
                   </div>
+
                   <div class="field">
                     <label for="telefone">Telefone</label>
                     <input id="telefone" name="telefone" type="tel" placeholder="(00) 00000-0000" required />
                   </div>
+
+                  <div class="field">
+                    <label for="modelo_negocio">Modelo de negócio</label>
+                    <select id="modelo_negocio" name="modelo_negocio" required>
+                      <option value="" disabled selected>Selecione uma opção</option>
+                      <option value="veterinaria">Veterinária</option>
+                      <option value="petshop">Petshop</option>
+                      <option value="agropecuaria">Agropecuária</option>
+                      <option value="supermercado">Supermercado</option>
+                      <option value="mercearia">Mercearia</option>
+                      <option value="casa_de_racao">Casa de Ração</option>
+                      <option value="revendedor">Revendedor</option>
+                      <option value="pessoa_fisica">Pessoa física</option>
+                    </select>
+                  </div>
+
                   <div class="field">
                     <label for="cargo">Cargo</label>
                     <input id="cargo" name="cargo" type="text" placeholder="Seu cargo" required />
                   </div>
+
                   <div class="field">
                     <label for="empresa">Empresa</label>
                     <input id="empresa" name="empresa" type="text" placeholder="Nome da empresa" required />
                   </div>
+
                   <div class="field">
                     <label for="cidade">Cidade</label>
                     <input id="cidade" name="cidade" type="text" placeholder="Nome da cidade" required />
                   </div>
+
                   <div class="field">
                     <label for="bairro">Bairro</label>
                     <input id="bairro" name="bairro" type="text" placeholder="Nome do bairro" required />
                   </div>
+
                   <button class="btn btn-primary" type="submit">Comprar agora</button>
                 </form>
               </div>
@@ -1857,6 +1880,7 @@
         nome: formData.get("nome"),
         email: formData.get("email"),
         telefone: formData.get("telefone"),
+        modelo_negocio: formData.get("modelo_negocio"),
         cargo: formData.get("cargo"),
         empresa: formData.get("empresa"),
         cidade: formData.get("cidade"),
@@ -1868,6 +1892,27 @@
         origem: document.referrer || "",
         data_envio: new Date().toISOString()
       };
+
+      /* Pessoa física:
+        não envia webhook e não dispara conversão */
+      const isPessoaFisica = payload.modelo_negocio === "pessoa_fisica";
+
+      if (isPessoaFisica) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Enviando...";
+
+        // Simula o mesmo fluxo visual de um envio normal
+        setTimeout(() => {
+          form.reset();
+
+          alert("Orçamento enviado com sucesso! Em breve entraremos em contato.");
+
+          submitButton.disabled = false;
+          submitButton.textContent = "Comprar agora";
+        }, 500);
+
+        return;
+      }
 
       try {
         submitButton.disabled = true;
@@ -1885,9 +1930,17 @@
           throw new Error("Erro ao enviar formulário");
         }
 
+        /* Evento personalizado para o GTM */
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "lead_form_submit",
+          modelo_negocio: payload.modelo_negocio
+        });
+
         form.reset();
 
         alert("Orçamento enviado com sucesso! Em breve entraremos em contato.");
+
       } catch (error) {
         console.error(error);
         alert("Não foi possível enviar o formulário. Tente novamente em alguns instantes.");
